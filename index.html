@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>옥션명품관 | CAPTAIN PRIVATE VIP LOUNGE</title>
+  <meta name="theme-color" content="#09090B">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="옥션명품관">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/png" href="./icon-192.png">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+  <style>
+    :root {
+      --bg: #09090B;
+      --bg-card: #121216;
+      --bg-elev: #1A1A22;
+      --gold: #D4AF37;
+      --gold-light: #F3E5AB;
+      --gold-dim: rgba(212, 175, 55, 0.18);
+      --gold-border: rgba(212, 175, 55, 0.35);
+      --text: #F8F8FA;
+      --sub: #A1A1AA;
+      --emerald: #10B981;
+      --rose: #F43F5E;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans KR', -apple-system, sans-serif;
+      background: radial-gradient(ellipse at 50% -15%, #231D12 0%, #0D0D11 45%, #060608 100%);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 92px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+    /* 상단 VIP 헤더 */
+    .vip-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(9, 9, 11, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--gold-border);
+      padding: 14px 18px;
+    }
+    .header-inner {
+      max-width: 1060px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .brand-box { display: flex; align-items: center; gap: 12px; }
+    .brand-emblem {
+      width: 42px; height: 42px; border-radius: 12px;
+      background: linear-gradient(135deg, #272011, #0E0E12);
+      border: 1.5px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; box-shadow: 0 0 18px rgba(212,175,55,0.28);
+    }
+    .brand-title {
+      font-size: 20px; font-weight: 900; letter-spacing: -0.5px;
+      background: linear-gradient(90deg, #F3E5AB, #D4AF37, #F3E5AB);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .brand-sub {
+      font-size: 11px; color: var(--gold); letter-spacing: 1.8px; font-weight: 600;
+    }
+    .vip-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 999px;
+      background: var(--gold-dim); border: 1px solid var(--gold-border);
+      color: var(--gold-light); font-size: 12px; font-weight: 700;
+      cursor: pointer; transition: 0.2s;
+    }
+    .vip-badge:hover { background: rgba(212,175,55,0.3); }
+
+    /* 히어로 배너 */
+    .container { max-width: 1060px; margin: 0 auto; padding: 20px 16px; }
+    .hero {
+      position: relative; overflow: hidden;
+      background: linear-gradient(135deg, #17140E 0%, #111116 60%, #1B160C 100%);
+      border: 1px solid var(--gold-border);
+      border-radius: 22px; padding: 26px 22px; margin-bottom: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.65);
+    }
+    .hero-tag {
+      display: inline-block; padding: 4px 12px; border-radius: 999px;
+      background: rgba(212,175,55,0.14); border: 1px solid var(--gold-border);
+      color: var(--gold-light); font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .hero h1 { font-size: 24px; font-weight: 900; line-height: 1.35; margin-bottom: 8px; }
+    .hero h1 span { color: var(--gold-light); }
+    .hero p { font-size: 13.5px; color: var(--sub); line-height: 1.6; max-width: 720px; }
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px;
+    }
+    .stat-pill {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; padding: 12px 10px; text-align: center;
+    }
+    .stat-pill .num { font-size: 18px; font-weight: 900; color: var(--gold-light); }
+    .stat-pill .lbl { font-size: 11px; color: var(--sub); margin-top: 2px; }
+
+    /* 탭 네비게이션 */
+    .tabs {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--sub); border-radius: 14px; padding: 12px 6px;
+      font-size: 13px; font-weight: 700; cursor: pointer; transition: 0.2s;
+      text-align: center;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, #2D2411, #19150B);
+      border-color: var(--gold); color: var(--gold-light);
+      box-shadow: 0 0 20px rgba(212,175,55,0.2);
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* 섹션 타이틀 */
+    .sec-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin: 8px 0 14px;
+    }
+    .sec-title { font-size: 17px; font-weight: 800; color: var(--gold-light); display: flex; align-items: center; gap: 8px; }
+    .sec-desc { font-size: 12px; color: var(--sub); }
+
+    /* 4대 옥션 카드 그리드 */
+    .auction-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px;
+      margin-bottom: 24px;
+    }
+    .auction-card {
+      background: linear-gradient(180deg, #16161C 0%, #101015 100%);
+      border: 1px solid rgba(212,175,55,0.28);
+      border-radius: 18px; padding: 20px; position: relative;
+      display: flex; flex-direction: column; justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .auction-card:hover { transform: translateY(-3px); border-color: var(--gold); }
+    .rank-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 800; color: #09090B;
+      background: linear-gradient(90deg, #F3E5AB, #D4AF37);
+      padding: 3px 10px; border-radius: 999px; margin-bottom: 10px;
+    }
+    .auction-name { font-size: 19px; font-weight: 900; color: #fff; margin-bottom: 3px; }
+    .auction-en { font-size: 12px; color: var(--gold); letter-spacing: 0.6px; margin-bottom: 10px; }
+    .auction-desc { font-size: 13px; color: #CBD5E1; line-height: 1.55; margin-bottom: 12px; }
+    .auction-meta {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;
+    }
+    .meta-chip {
+      font-size: 11px; padding: 4px 8px; border-radius: 8px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09);
+      color: var(--gold-light);
+    }
+    .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .btn-gold {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      text-decoration: none; font-size: 13px; font-weight: 800;
+      padding: 11px 12px; border-radius: 12px; border: none; cursor: pointer;
+      background: linear-gradient(135deg, #E5C158, #B88A1E); color: #09090B;
+      transition: 0.2s;
+    }
+    .btn-gold:hover { filter: brightness(1.08); }
+    .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      text-decoration: none; font-size: 12.5px; font-weight: 700;
+      padding: 11px 10px; border-radius: 12px; cursor: pointer;
+      background: rgba(212,175,55,0.08); border: 1px solid var(--gold-border);
+      color: var(--gold-light); transition: 0.2s;
+    }
+    .btn-outline:hover { background: rgba(212,175,55,0.2); }
+
+    /* 개인 즉시 입찰 대행 섹션 */
+    .sub-box {
+      background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px; padding: 18px; margin-bottom: 18px;
+    }
+    .grade-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px;
+      margin-top: 10px;
+    }
+    .grade-item {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 10px; font-size: 12px;
+    }
+    .grade-item strong { color: var(--gold-light); font-size: 14px; display: block; margin-bottom: 3px; }
+
+    /* 계산기 */
+    .calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+    .field label { display: block; font-size: 12px; color: var(--gold-light); font-weight: 700; margin-bottom: 6px; }
+    .field input, .field select, .field textarea {
+      width: 100%; background: #0B0B0F; border: 1px solid rgba(212,175,55,0.3);
+      border-radius: 12px; padding: 12px 14px; color: #fff; font-size: 15px; font-weight: 700;
+      outline: none;
+    }
+    .field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,175,55,0.15); }
+    .calc-result {
+      margin-top: 18px; background: linear-gradient(135deg, #1D170B, #101015);
+      border: 1.5px solid var(--gold); border-radius: 18px; padding: 20px;
+    }
+    .res-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0; border-bottom: 1px dashed rgba(255,255,255,0.1); font-size: 13.5px;
+    }
+    .res-row:last-child { border-bottom: none; }
+    .res-total { font-size: 22px; font-weight: 900; color: var(--gold-light); }
+    .res-profit { font-size: 20px; font-weight: 900; color: var(--emerald); }
+
+    /* 위시리스트 */
+    .wish-list { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+    .wish-item {
+      background: #14141A; border: 1px solid rgba(212,175,55,0.22);
+      border-radius: 14px; padding: 14px 16px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .wish-item.done { opacity: 0.55; border-color: rgba(16,185,129,0.4); }
+    .wish-item.done .wish-title { text-decoration: line-through; }
+    .wish-brand { font-size: 11px; font-weight: 800; color: var(--gold); }
+    .wish-title { font-size: 15px; font-weight: 800; color: #fff; margin: 2px 0; }
+    .wish-note { font-size: 12px; color: var(--sub); }
+    .wish-actions { display: flex; gap: 6px; flex-shrink: 0; }
+    .mini-btn {
+      padding: 7px 10px; border-radius: 9px; border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.05); color: #fff; font-size: 12px; font-weight: 700; cursor: pointer;
+    }
+    .mini-btn.ok { border-color: var(--emerald); color: var(--emerald); }
+    .mini-btn.del { border-color: var(--rose); color: var(--rose); }
+
+    /* AI 감정관 */
+    .upload-zone {
+      border: 2px dashed var(--gold-border); border-radius: 16px;
+      padding: 28px 16px; text-align: center; cursor: pointer;
+      background: rgba(212,175,55,0.04); transition: 0.2s; margin-bottom: 14px;
+    }
+    .upload-zone:hover { background: rgba(212,175,55,0.1); }
+    .preview-img {
+      max-width: 240px; max-height: 240px; border-radius: 14px;
+      border: 1.5px solid var(--gold); margin: 10px auto; display: none; object-fit: cover;
+    }
+    .check-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; margin-top: 12px; }
+    .check-card {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 11px 12px; font-size: 12.5px; display: flex; gap: 8px; align-items: flex-start;
+    }
+
+    /* 하단 고정바 */
+    .bottom-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
+      background: rgba(9,9,11,0.95); backdrop-filter: blur(12px);
+      border-top: 1px solid var(--gold-border); padding: 10px 16px;
+    }
+    .bottom-inner {
+      max-width: 1060px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .toast {
+      position: fixed; bottom: 76px; left: 50%; transform: translateX(-50%);
+      background: var(--gold); color: #09090B; font-weight: 900; font-size: 13px;
+      padding: 10px 20px; border-radius: 999px; display: none; z-index: 999;
+      box-shadow: 0 8px 25px rgba(212,175,55,0.45);
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 20px; }
+      .tabs { grid-template-columns: repeat(2, 1fr); }
+      .hero-stats { grid-template-columns: repeat(3, 1fr); }
+      .btn-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 상단 VIP 헤더 -->
+  <header class="vip-header">
+    <div class="header-inner">
+      <div class="brand-box">
+        <div class="brand-emblem">💎</div>
+        <div>
+          <div class="brand-title">옥션명품관</div>
+          <div class="brand-sub serif">CAPTAIN PRIVATE VIP LOUNGE</div>
+        </div>
+      </div>
+      <button class="vip-badge" id="installBtn" onclick="installApp()">📲 1초 앱 설치</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 히어로 배너 -->
+    <section class="hero">
+      <span class="hero-tag">👑 CAPTAIN ONLY · 100% AUTHENTIC JAPAN AUCTION GATE</span>
+      <h1>일본 4대 진품 명품 옥션 <span>프라이빗 관제 플랫폼</span></h1>
+      <p>전 세계 100% 정품 명품의 원천인 일본 4대 B2B 도매 옥션(에코링 · 스타바이어스 · 오크넷 · 브랜드오프) 직통 게이트부터, 실시간 관부가세 원가 계산기 · 사모님 선물 위시리스트 · 향후 명품 비즈니스 확장용 감정관까지 한곳에 담았습니다.</p>
+      <div class="hero-stats">
+        <div class="stat-pill">
+          <div class="num">4대 옥션</div>
+          <div class="lbl">일본 100% 진품 도매</div>
+        </div>
+        <div class="stat-pill">
+          <div class="num">원클릭 번역</div>
+          <div class="lbl">일본어 몰라도 바로 열람</div>
+        </div>
+        <div class="stat-pill">
+          <div class="num">실시간 계산</div>
+          <div class="lbl">낙찰가·관부가세·마진</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4개 핵심 탭 -->
+    <nav class="tabs">
+      <button class="tab-btn active" onclick="openTab('auctions', this)">🏛️ 4대 진품 옥션</button>
+      <button class="tab-btn" onclick="openTab('calc', this)">🧮 원가·관세 계산기</button>
+      <button class="tab-btn" onclick="openTab('wish', this)">💝 와이프 선물장</button>
+      <button class="tab-btn" onclick="openTab('verify', this)">💎 AI 감정·확장관</button>
+    </nav>
+
+    <!-- TAB 1: 일본 4대 진품 B2B 옥션 -->
+    <section id="tab-auctions" class="tab-panel active">
+      <div class="sec-head">
+        <div class="sec-title">🏛️ 일본 4대 B2B 100% 진품 명품 도매 옥션</div>
+        <span class="sec-desc">사업자 등록 · B2B 대행 입찰</span>
+      </div>
+
+      <div class="auction-grid">
+        <!-- 1. 에코링 옥션 -->
+        <article class="auction-card">
+          <div>
+            <span class="rank-tag">NO.1 · 한국 지사 보유</span>
+            <h2 class="auction-name">에코링 옥션</h2>
+            <div class="auction-en serif">EcoRing the Auction</div>
+            <p class="auction-desc">일본 전역 수백 개 직영 매장에서 직접 매입·감정한 100% 정품만 출품하는 대형 옥션. 매주 수만 점의 샤넬·에르메스·루이비통 가방 및 액세서리가 거래됩니다.</p>
+            <div class="auction-meta">
+              <span class="meta-chip">✔ 전수 정품 감정</span>
+              <span class="meta-chip">✔ 한국 지사/대행 풍부</span>
+              <span class="meta-chip">✔ 가방·소품 강점</span>
+            </div>
+          </div>
+          <div class="btn-row">
+            <a class="btn-gold" href="https://auction.eco-ring.com/" target="_blank" rel="noopener">🔗 공식 옥션 입장</a>
+            <a class="btn-outline" href="https://translate.google.com/translate?sl=ja&tl=ko&u=https://auction.eco-ring.com/" target="_blank" rel="noopener">🇰🇷 한국어 번역 보기</a>
+          </div>
+        </article>
+
+        <!-- 2. 스타바이어스 옥션 -->
+        <article class="auction-card">
+          <div>
+            <span class="rank-tag">NO.2 · 일본 최대급 B2B</span>
+            <h2 class="auction-name">스타바이어스 옥션</h2>
+            <div class="auction-en serif">Star Buyers Auction (SBA)</div>
+            <p class="auction-desc">일본 최대 규모 중 하나인 글로벌 B2B 명품 경매장. 엄격한 감정 심사를 통과한 하이엔드 시계(롤렉스·까르띠에), 에르메스·샤넬 물량이 압도적으로 많습니다.</p>
+            <div class="auction-meta">
+              <span class="meta-chip">✔ 하이엔드·시계 최강</span>
+              <span class="meta-chip">✔ 글로벌 온라인 입찰</span>
+              <span class="meta-chip">✔ 엄격한 등급제</span>
+            </div>
+          </div>
+          <div class="btn-row">
+            <a class="btn-gold" href="https://biz.starbuyers-global-auction.com/" target="_blank" rel="noopener">🔗 공식 옥션 입장</a>
+            <a class="btn-outline" href="https://translate.google.com/translate?sl=ja&tl=ko&u=https://biz.starbuyers-global-auction.com/" target="_blank" rel="noopener">🇰🇷 한국어 번역 보기</a>
+          </div>
+        </article>
+
+        <!-- 3. 오크넷 브랜드 옥션 -->
+        <article class="auction-card">
+          <div>
+            <span class="rank-tag">NO.3 · 전문 딜러 도매</span>
+            <h2 class="auction-name">오크넷 브랜드 옥션</h2>
+            <div class="auction-en serif">Aucnet Brand Auction</div>
+            <p class="auction-desc">일본 상장사 오크넷이 운영하는 실시간 온라인 도매 경매. 전문 감정사의 상세 컨디션 리포트와 고화질 사진이 제공되어 전 세계 전문 바이어들이 신뢰하는 곳입니다.</p>
+            <div class="auction-meta">
+              <span class="meta-chip">✔ 일본 상장사 운영</span>
+              <span class="meta-chip">✔ 정밀 컨디션 표기</span>
+              <span class="meta-chip">✔ 가방·주얼리·시계</span>
+            </div>
+          </div>
+          <div class="btn-row">
+            <a class="btn-gold" href="https://www.brand-auc.com/" target="_blank" rel="noopener">🔗 공식 옥션 입장</a>
+            <a class="btn-outline" href="https://translate.google.com/translate?sl=ja&tl=ko&u=https://www.brand-auc.com/" target="_blank" rel="noopener">🇰🇷 한국어 번역 보기</a>
+          </div>
+        </article>
+
+        <!-- 4. 브랜드오프 JBA 옥션 -->
+        <article class="auction-card">
+          <div>
+            <span class="rank-tag">NO.4 · 코메효 그룹 JBA</span>
+            <h2 class="auction-name">브랜드오프 옥션 (JBA)</h2>
+            <div class="auction-en serif">Japan Brand Auction · K-Brand Off</div>
+            <p class="auction-desc">일본 명품 리테일 거인 코메효(KOMEHYO) 그룹 계열 JBA 도매 경매장. 에르메스·샤넬·루이비통 특화 물량이 풍부하며, 공식 온라인 진품 스토어도 별도 운영합니다.</p>
+            <div class="auction-meta">
+              <span class="meta-chip">✔ 코메효 그룹 보증</span>
+              <span class="meta-chip">✔ 에르메스·샤넬 특화</span>
+              <span class="meta-chip">✔ 공식 스토어 연동</span>
+            </div>
+          </div>
+          <div class="btn-row">
+            <a class="btn-gold" href="https://www.brandauction.jp/" target="_blank" rel="noopener">🔗 JBA 옥션 입장</a>
+            <a class="btn-outline" href="https://www.brandoff-store.com/" target="_blank" rel="noopener">🛍️ 공식 진품 스토어</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- 개인(사업자 없이) 바로 사모님 선물 시세 보기 & 입찰 -->
+      <div class="sub-box">
+        <div class="sec-head" style="margin-top:0;">
+          <div class="sec-title">🎁 사업자 없이 오늘 바로 사모님 선물 시세 보기 (한국어 대행)</div>
+        </div>
+        <p style="font-size:13px; color:var(--sub); line-height:1.6; margin-bottom:14px;">
+          개인 명의로 사모님 선물을 바로 구매하실 때는 일본 야후옥션 한국어 대행 사이트에서 반드시 <strong style="color:var(--gold-light)">「스토어(ストア)」 마크가 붙은 일본 대형 법인 매장(에코링·브랜드오프·코메효·다이코쿠야)</strong> 출품 상품만 고르시면 100% 진품 보증을 받으실 수 있습니다.
+        </p>
+        <div class="btn-row" style="max-width:520px;">
+          <a class="btn-gold" href="https://www.bidbuy.co.kr/" target="_blank" rel="noopener">🇰🇷 비드바이 (한국어 경매)</a>
+          <a class="btn-outline" href="https://www.japanbid.co.kr/" target="_blank" rel="noopener">🇰🇷 재팬비드 (한국어 경매)</a>
+        </div>
+      </div>
+
+      <!-- 일본 명품 옥션 컨디션 등급표 -->
+      <div class="sub-box">
+        <div class="sec-title" style="font-size:15px;">📋 일본 진품 옥션 컨디션 등급표 (선물용은 SA~A 추천)</div>
+        <div class="grade-grid">
+          <div class="grade-item"><strong>N / S 등급</strong>미사용 신품급 · 선물용 최상</div>
+          <div class="grade-item"><strong>SA 등급</strong>1~2회 사용 극미세 흔적 · 가성비 최고</div>
+          <div class="grade-item"><strong>A 등급</strong>매우 깨끗한 상태 · 실사용 선물 추천</div>
+          <div class="grade-item"><strong>AB 등급</strong>약간의 생활감 · 마진 리셀 주력</div>
+          <div class="grade-item"><strong>B 등급</strong>사용감 뚜렷 · 염가 매입 후 복원용</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: 원가 · 관부가세 · 마진 계산기 -->
+    <section id="tab-calc" class="tab-panel">
+      <div class="sub-box">
+        <div class="sec-title" style="margin-bottom:14px;">🧮 일본 옥션 낙찰가 → 한국 도착 총원가 & 마진 계산기</div>
+        <div class="calc-grid">
+          <div class="field">
+            <label>일본 옥션 낙찰가 (엔 ¥)</label>
+            <input type="number" id="c_yen" value="150000" oninput="calcCost()">
+          </div>
+          <div class="field">
+            <label>적용 환율 (100엔당 원)</label>
+            <input type="number" id="c_rate" value="930" oninput="calcCost()">
+          </div>
+          <div class="field">
+            <label>일본 소비세 (10%)</label>
+            <select id="c_jtax" onchange="calcCost()">
+              <option value="0.10" selected>포함 (+10% 법인 스토어)</option>
+              <option value="0">면세/미포함 (0%)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>대행 수수료 (%)</label>
+            <input type="number" id="c_fee" value="5" step="0.5" oninput="calcCost()">
+          </div>
+          <div class="field">
+            <label>품목별 관부가세율</label>
+            <select id="c_customs" onchange="calcCost()">
+              <option value="0.188" selected>명품 가방 · 지갑 (약 18.8%)</option>
+              <option value="0.20">명품 시계 · 주얼리 (약 20.0%)</option>
+              <option value="0.243">명품 의류 · 신발 (약 24.3%)</option>
+              <option value="0.10">부가세만 적용 / FTA 특혜 (10%)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>현지 + 국제 배송비 (원)</label>
+            <input type="number" id="c_ship" value="35000" oninput="calcCost()">
+          </div>
+          <div class="field">
+            <label>국내 시세 / 예상 판매가 (원)</label>
+            <input type="number" id="c_kr" value="2500000" oninput="calcCost()">
+          </div>
+        </div>
+
+        <div class="calc-result">
+          <div class="res-row"><span>① 물품 원화 환산액 (소비세 포함)</span><strong id="r_item">-</strong></div>
+          <div class="res-row"><span>② 대행 수수료 + 배송비</span><strong id="r_fee">-</strong></div>
+          <div class="res-row"><span>③ 예상 한국 관부가세</span><strong id="r_tax">-</strong></div>
+          <div class="res-row" style="padding-top:12px;">
+            <span style="font-weight:800; color:#fff;">💰 한국 도착 최종 총원가</span>
+            <span class="res-total" id="r_total">-</span>
+          </div>
+          <div class="res-row">
+            <span style="font-weight:800; color:var(--emerald);">✨ 국내 시세 대비 절약액 (예상 순마진)</span>
+            <span class="res-profit" id="r_profit">-</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: 와이프 선물 위시리스트 -->
+    <section id="tab-wish" class="tab-panel">
+      <div class="sub-box">
+        <div class="sec-title" style="margin-bottom:14px;">💝 사모님 선물 위시리스트 & 목표 입찰가 메모장</div>
+        <div class="calc-grid">
+          <div class="field">
+            <label>명품 브랜드</label>
+            <select id="w_brand">
+              <option value="CHANEL 샤넬">CHANEL 샤넬</option>
+              <option value="HERMES 에르메스">HERMES 에르메스</option>
+              <option value="LOUIS VUITTON 루이비통">LOUIS VUITTON 루이비통</option>
+              <option value="DIOR 디올">DIOR 디올</option>
+              <option value="CARTIER 까르띠에">CARTIER 까르띠에</option>
+              <option value="VAN CLEEF 반클리프">VAN CLEEF 반클리프</option>
+              <option value="PRADA / GUCCI 기타">PRADA / GUCCI 기타</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>모델명 / 아이템</label>
+            <input type="text" id="w_model" placeholder="예: 클래식 플랩백 미디엄 블랙 은장">
+          </div>
+          <div class="field">
+            <label>목표 낙찰가 (엔 ¥ 또는 원)</label>
+            <input type="text" id="w_price" placeholder="예: ¥450,000 (SA등급)">
+          </div>
+          <div class="field">
+            <label>메모 (옥션처 · 링크 등)</label>
+            <input type="text" id="w_note" placeholder="예: 에코링 또는 브랜드오프 우선 확인">
+          </div>
+        </div>
+        <button class="btn-gold" style="margin-top:14px; width:100%;" onclick="addWish()">+ 사모님 선물 리스트에 저장</button>
+
+        <div class="wish-list" id="wishList"></div>
+      </div>
+    </section>
+
+    <!-- TAB 4: AI 사진 정품 감정 · 비즈니스 확장관 -->
+    <section id="tab-verify" class="tab-panel">
+      <div class="sub-box">
+        <div class="sec-title" style="margin-bottom:6px;">💎 내 명품 감정 · 중개 비즈니스 확장관 (플랫폼 시제품)</div>
+        <p style="font-size:13px; color:var(--sub); margin-bottom:16px; line-height:1.55;">
+          캡틴께서 나중에 영상 속 대표처럼 <strong>「사진 1장 명품 감정 · 진품 경매 대행 · 위탁 판매」</strong> 비즈니스 사이트로 확장하실 때 바로 쓰실 수 있도록 플랫폼 골격을 미리 탑재했습니다.
+        </p>
+
+        <div class="upload-zone" onclick="document.getElementById('v_file').click()">
+          <input type="file" id="v_file" accept="image/*" style="display:none" onchange="previewVerify(event)">
+          <div style="font-size:30px; margin-bottom:6px;">📸</div>
+          <div style="font-weight:800; color:var(--gold-light); font-size:15px;">감정할 명품 사진을 올려주세요 (클릭)</div>
+          <div style="font-size:12px; color:var(--sub); margin-top:4px;">로고 각인 · 시리얼 넘버 · 전체 정면 사진 권장</div>
+          <img id="v_preview" class="preview-img" alt="미리보기">
+        </div>
+
+        <div class="calc-grid" style="margin-bottom:12px;">
+          <div class="field">
+            <label>브랜드 선택</label>
+            <select id="v_brand">
+              <option>CHANEL (샤넬)</option>
+              <option>HERMES (에르메스)</option>
+              <option>LOUIS VUITTON (루이비통)</option>
+              <option>DIOR (디올)</option>
+              <option>ROLEX / CARTIER (시계·주얼리)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>희망 서비스</label>
+            <select id="v_mode">
+              <option>정품/가품 1차 체크리스트 점검</option>
+              <option>일본 4대 옥션 시세 조회 요청</option>
+              <option>위탁 판매 / 매입 견적 요청</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-gold" style="width:100%;" onclick="runVerifyDemo()">🔍 감정 체크 & 접수 시뮬레이션 실행</button>
+
+        <div id="verifyResult" style="display:none; margin-top:16px; padding:16px; border-radius:14px; background:#141C18; border:1px solid var(--emerald);">
+          <div style="font-weight:900; color:var(--emerald); font-size:15px; margin-bottom:6px;">✔ 1차 접수 완료 (플랫폼 연동 준비됨)</div>
+          <div id="verifyMsg" style="font-size:13px; color:#E2E8F0; line-height:1.6;"></div>
+        </div>
+
+        <div class="sec-title" style="font-size:14px; margin-top:20px;">🛡️ 명품 정품 감별 7대 필수 체크포인트</div>
+        <div class="check-list">
+          <div class="check-card"><span>1️⃣</span><div><strong>브랜드 각인 폰트</strong><br><span style="color:var(--sub)">자간·깊이·금박 번짐 여부 확인</span></div></div>
+          <div class="check-card"><span>2️⃣</span><div><strong>스티치(박음질) 간격</strong><br><span style="color:var(--sub)">일정한 사선 각도 및 실 마감 상태</span></div></div>
+          <div class="check-card"><span>3️⃣</span><div><strong>시리얼 · RFID 칩</strong><br><span style="color:var(--sub)">홀로그램 스티커·내장 칩·보증서 일치</span></div></div>
+          <div class="check-card"><span>4️⃣</span><div><strong>금속 하드웨어 각인</strong><br><span style="color:var(--sub)">지퍼(Lampo/EP/Riri)·나사 모양 확인</span></div></div>
+          <div class="check-card"><span>5️⃣</span><div><strong>가죽 결 · 냄새</strong><br><span style="color:var(--sub)">고유 엠보싱 패턴 및 천연 가죽 질감</span></div></div>
+          <div class="check-card"><span>6️⃣</span><div><strong>일본 법인 스토어 이력</strong><br><span style="color:var(--sub)">에코링·SBA·오크넷·JBA 출품 보증</span></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 하단 고정 VIP 바 -->
+  <footer class="bottom-bar">
+    <div class="bottom-inner">
+      <div style="font-size:12px; color:var(--sub);">
+        <strong style="color:var(--gold-light)">옥션명품관</strong> · 캡틴 전용 프라이빗 플랫폼
+      </div>
+      <button class="btn-outline" style="padding:7px 14px; font-size:12px;" onclick="copySiteUrl()">🔗 주소 복사</button>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // 탭 전환
+    function openTab(id, btn) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.add('active');
+      if (btn) btn.classList.add('active');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.style.display = 'block';
+      setTimeout(() => t.style.display = 'none', 2400);
+    }
+
+    // 원가 · 관부가세 계산기
+    const fmt = n => Math.round(n).toLocaleString('ko-KR') + '원';
+    function calcCost() {
+      const yen = Number(document.getElementById('c_yen').value) || 0;
+      const rate = Number(document.getElementById('c_rate').value) || 930;
+      const jtax = Number(document.getElementById('c_jtax').value) || 0;
+      const feeRate = (Number(document.getElementById('c_fee').value) || 0) / 100;
+      const customsRate = Number(document.getElementById('c_customs').value) || 0.188;
+      const ship = Number(document.getElementById('c_ship').value) || 0;
+      const kr = Number(document.getElementById('c_kr').value) || 0;
+
+      const yenWithTax = yen * (1 + jtax);
+      const itemKrw = yenWithTax * (rate / 100);
+      const feeKrw = itemKrw * feeRate;
+      const taxBase = itemKrw + ship;
+      const customsKrw = taxBase > 200000 ? taxBase * customsRate : 0;
+      const total = itemKrw + feeKrw + ship + customsKrw;
+      const profit = kr - total;
+      const pct = total > 0 ? ((profit / total) * 100).toFixed(1) : '0.0';
+
+      document.getElementById('r_item').textContent = fmt(itemKrw);
+      document.getElementById('r_fee').textContent = fmt(feeKrw + ship);
+      document.getElementById('r_tax').textContent = fmt(customsKrw);
+      document.getElementById('r_total').textContent = fmt(total);
+      const pEl = document.getElementById('r_profit');
+      pEl.textContent = (profit >= 0 ? '+' : '') + fmt(profit) + ` (${pct}%)`;
+      pEl.style.color = profit >= 0 ? '#10B981' : '#F43F5E';
+    }
+    calcCost();
+
+    // 와이프 선물 위시리스트 (localStorage 영구 저장)
+    const WISH_KEY = 'captain_auction_luxury_wishlist_v1';
+    const DEFAULT_WISH = [
+      { id: 1, brand: 'CHANEL 샤넬', model: '클래식 캐비어 카드지갑 / WOC (SA등급)', price: '목표 ¥120,000~¥320,000', note: '에코링 · 브랜드오프 우선 확인', done: false },
+      { id: 2, brand: 'LOUIS VUITTON 루이비통', model: '모노그램 알마 BB / 스피디 25 (SA등급)', price: '목표 ¥130,000~¥180,000', note: '스타바이어스 · 비드바이 법인 스토어 확인', done: false },
+      { id: 3, brand: 'CARTIER 까르띠에', model: '탱크 머스트 / 러브 팔찌 (A~SA등급)', price: '목표 ¥250,000~¥450,000', note: '스타바이어스 시계·주얼리 강점', done: false }
+    ];
+
+    function getWish() {
+      try {
+        const raw = localStorage.getItem(WISH_KEY);
+        return raw ? JSON.parse(raw) : DEFAULT_WISH;
+      } catch { return DEFAULT_WISH; }
+    }
+    function saveWish(list) {
+      localStorage.setItem(WISH_KEY, JSON.stringify(list));
+      renderWish();
+    }
+    function renderWish() {
+      const list = getWish();
+      const el = document.getElementById('wishList');
+      if (!list.length) {
+        el.innerHTML = '<div style="text-align:center;color:var(--sub);padding:24px;">저장된 위시리스트가 없습니다. 위에서 사모님 선물을 추가해 보세요!</div>';
+        return;
+      }
+      el.innerHTML = list.map(item => `
+        <div class="wish-item ${item.done ? 'done' : ''}">
+          <div>
+            <div class="wish-brand">${item.brand}</div>
+            <div class="wish-title">${item.model}</div>
+            <div class="wish-note">${item.price}${item.note ? ' · ' + item.note : ''}</div>
+          </div>
+          <div class="wish-actions">
+            <button class="mini-btn ok" onclick="toggleWish(${item.id})">${item.done ? '복구' : '✔ 완료'}</button>
+            <button class="mini-btn del" onclick="delWish(${item.id})">삭제</button>
+          </div>
+        </div>
+      `).join('');
+    }
+    function addWish() {
+      const brand = document.getElementById('w_brand').value;
+      const model = document.getElementById('w_model').value.trim();
+      const price = document.getElementById('w_price').value.trim() || '시세 확인 중';
+      const note = document.getElementById('w_note').value.trim();
+      if (!model) { showToast('모델명을 입력해 주세요!'); return; }
+      const list = getWish();
+      list.unshift({ id: Date.now(), brand, model, price, note, done: false });
+      saveWish(list);
+      document.getElementById('w_model').value = '';
+      document.getElementById('w_price').value = '';
+      document.getElementById('w_note').value = '';
+      showToast('💝 사모님 선물 리스트에 저장되었습니다!');
+    }
+    function toggleWish(id) {
+      const list = getWish().map(i => i.id === id ? { ...i, done: !i.done } : i);
+      saveWish(list);
+    }
+    function delWish(id) {
+      saveWish(getWish().filter(i => i.id !== id));
+      showToast('삭제되었습니다.');
+    }
+    renderWish();
+
+    // AI 감정관 데모
+    function previewVerify(e) {
+      const f = e.target.files[0];
+      if (!f) return;
+      const img = document.getElementById('v_preview');
+      img.src = URL.createObjectURL(f);
+      img.style.display = 'block';
+    }
+    function runVerifyDemo() {
+      const brand = document.getElementById('v_brand').value;
+      const mode = document.getElementById('v_mode').value;
+      const box = document.getElementById('verifyResult');
+      document.getElementById('verifyMsg').innerHTML =
+        `선택 브랜드: <strong>${brand}</strong><br>요청 서비스: <strong>${mode}</strong><br>` +
+        `추후 캡틴께서 사업자 오픈 시 이 버튼에 카카오톡 채널·문자·감정사 DB를 연결하면 바로 고객 접수·결제 플랫폼으로 전환됩니다!`;
+      box.style.display = 'block';
+      showToast('💎 감정 접수 시뮬레이션 완료!');
+    }
+
+    // 주소 복사
+    function copySiteUrl() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        showToast('🔗 옥션명품관 주소가 복사되었습니다!');
+      }).catch(() => showToast(window.location.href));
+    }
+
+    // PWA 1초 설치
+    let deferredPrompt = null;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+    });
+    function installApp() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
+      } else {
+        showToast('브라우저 우측 상단 메뉴(⋮) → [홈 화면에 추가]로 1초 설치!');
+      }
+    }
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
