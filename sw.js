@@ -1,4 +1,4 @@
-const CACHE_NAME = 'auction-luxury-vip-v2';
+const CACHE_NAME = 'auction-luxury-vip-v3';
 const CORE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', (e) => {
