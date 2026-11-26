@@ -130,9 +130,15 @@
     .hero p { font-size: 13px; color: var(--sub); line-height: 1.6; max-width: 720px; }
     .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
     .stat-pill {
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 13px; padding: 10px 8px; text-align: center;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(212,175,55,0.28);
+      border-radius: 13px; padding: 11px 8px; text-align: center;
+      cursor: pointer; transition: 0.2s; font-family: inherit; width: 100%;
     }
+    .stat-pill:hover {
+      background: rgba(212,175,55,0.16); border-color: var(--gold);
+      transform: translateY(-2px); box-shadow: 0 6px 18px rgba(212,175,55,0.22);
+    }
+    .stat-pill:active { transform: scale(0.97); }
     .stat-pill .num { font-size: 16px; font-weight: 900; color: var(--gold-light); }
     .stat-pill .lbl { font-size: 10.5px; color: var(--sub); margin-top: 2px; }
 
@@ -366,9 +372,9 @@
       <h1>일본 4대 진품 명품 옥션 <span>프라이빗 관제 플랫폼</span></h1>
       <p>PC에서는 와이드 웹 관제판, 스마트폰에서는 홈화면 1초 설치 전용 앱으로 작동합니다. 일본 4대 100% 진품 도매 옥션 직통 링크 + 실시간 관부가세 계산기 + 사모님 선물장 + AI 감정 확장관까지 모두 담았습니다.</p>
       <div class="hero-stats">
-        <div class="stat-pill"><div class="num">4대 옥션</div><div class="lbl">일본 100% 진품</div></div>
-        <div class="stat-pill"><div class="num">원클릭 번역</div><div class="lbl">한국어 바로 열람</div></div>
-        <div class="stat-pill"><div class="num">PC · 폰 앱</div><div class="lbl">1초 설치 겸용</div></div>
+        <button type="button" class="stat-pill" onclick="goSection('auctions')"><div class="num">🏛️ 4대 옥션</div><div class="lbl">일본 100% 진품 보기</div></button>
+        <button type="button" class="stat-pill" onclick="goSection('calc')"><div class="num">🧮 실시간 계산</div><div class="lbl">낙찰가·관부가세·마진</div></button>
+        <button type="button" class="stat-pill" onclick="goSection('wish')"><div class="num">💝 와이프 선물장</div><div class="lbl">위시리스트 바로가기</div></button>
       </div>
     </section>
 
@@ -664,8 +670,19 @@
     function openTab(id) {
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('[data-tab]').forEach(b => b.classList.toggle('active', b.dataset.tab === id));
-      document.getElementById('tab-' + id).classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const panel = document.getElementById('tab-' + id);
+      if (panel) panel.classList.add('active');
+    }
+    function goSection(id) {
+      openTab(id);
+      const panel = document.getElementById('tab-' + id);
+      if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (id === 'calc') {
+        setTimeout(() => {
+          const inp = document.getElementById('c_yen');
+          if (inp) inp.focus();
+        }, 350);
+      }
     }
 
     function showToast(msg) {
