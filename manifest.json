@@ -1,0 +1,19 @@
+{
+  "id": "./",
+  "name": "옥션명품관 | 캡틴 전용 일본 4대 진품 명품 옥션 플랫폼",
+  "short_name": "옥션명품관",
+  "description": "에코링 · 스타바이어스 · 오크넷 · 브랜드오프 일본 4대 진품 명품 옥션 직통 게이트 & 원가·관부가세 계산기",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#09090B",
+  "theme_color": "#09090B",
+  "lang": "ko",
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
